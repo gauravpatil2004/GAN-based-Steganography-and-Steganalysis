@@ -1,0 +1,37 @@
+@"
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# VS Code
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Large model files
+*.pth
+*.pt
+*.h5
+
+# Data and results
+data/
+results/
+models/
+"@ | Out-File -Encoding UTF8 .gitignore
