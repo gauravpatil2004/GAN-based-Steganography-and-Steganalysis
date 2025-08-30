@@ -11,3 +11,6 @@ streamlit
 tqdm
 cryptography
 pandas
+seaborn
+opencv-python
+dataclasses

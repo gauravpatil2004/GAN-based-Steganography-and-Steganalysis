@@ -295,5 +295,78 @@ def test_text_stegano_networks():
     print(f"   Total: {total_params:,} parameters")
 
 
+class TextEmbedding(nn.Module):
+    """Text embedding layer for converting text indices to embeddings."""
+    
+    def __init__(self, vocab_size: int, embed_dim: int, max_length: int):
+        super().__init__()
+        
+        self.vocab_size = vocab_size
+        self.embed_dim = embed_dim
+        self.max_length = max_length
+        
+        # Embedding layer
+        self.embedding = nn.Embedding(vocab_size + 3, embed_dim)  # +3 for special tokens
+        
+        # Positional encoding
+        self.position_embedding = nn.Embedding(max_length, embed_dim)
+        
+        # Text encoder (simple LSTM)
+        self.text_encoder = nn.LSTM(
+            input_size=embed_dim,
+            hidden_size=embed_dim // 2,
+            num_layers=2,
+            batch_first=True,
+            dropout=0.1,
+            bidirectional=True
+        )
+        
+        # Output projection
+        self.output_proj = nn.Linear(embed_dim, embed_dim)
+        
+        print(f"🧠 TextEmbedding initialized:")
+        print(f"   Vocab size: {vocab_size}")
+        print(f"   Embed dim: {embed_dim}")
+        print(f"   Hidden dim: {embed_dim // 2 * 2}")
+    
+    def forward(self, text_indices: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass for text embedding.
+        
+        Args:
+            text_indices: [batch_size, max_length] tensor of text indices
+            
+        Returns:
+            text_embeddings: [batch_size, embed_dim] tensor
+        """
+        batch_size, seq_len = text_indices.shape
+        
+        # Create position indices
+        positions = torch.arange(seq_len, device=text_indices.device).unsqueeze(0).expand(batch_size, -1)
+        
+        # Get embeddings
+        token_embeddings = self.embedding(text_indices)  # [batch_size, seq_len, embed_dim]
+        pos_embeddings = self.position_embedding(positions)  # [batch_size, seq_len, embed_dim]
+        
+        # Combine token and positional embeddings
+        combined_embeddings = token_embeddings + pos_embeddings
+        
+        # Pass through LSTM
+        lstm_out, (hidden, cell) = self.text_encoder(combined_embeddings)
+        
+        # Use mean pooling to get fixed-size representation
+        # Mask padding tokens (assuming padding token is 0)
+        mask = (text_indices != 0).float().unsqueeze(-1)  # [batch_size, seq_len, 1]
+        masked_output = lstm_out * mask
+        
+        # Mean pooling
+        text_embedding = masked_output.sum(dim=1) / mask.sum(dim=1).clamp(min=1)  # [batch_size, embed_dim]
+        
+        # Final projection
+        text_embedding = self.output_proj(text_embedding)
+        
+        return text_embedding
+
+
 if __name__ == "__main__":
     test_text_stegano_networks()

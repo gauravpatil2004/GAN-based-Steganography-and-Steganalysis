@@ -1,0 +1,99 @@
+{
+  "lsb_results": {
+    "average_character_accuracy": 1.0,
+    "average_word_accuracy": 1.0,
+    "average_psnr": 55.864873047579906,
+    "success_rate": 1.0,
+    "total_tests": 10,
+    "successful_tests": 10,
+    "results": [
+      {
+        "original_text": "password123",
+        "extracted_text": "password123",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.819998833601105,
+        "success": true
+      },
+      {
+        "original_text": "https://secret-site.com/login",
+        "extracted_text": "https://secret-site.com/login",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.96351055387586,
+        "success": true
+      },
+      {
+        "original_text": "GPS: 40.7128, -74.0060",
+        "extracted_text": "GPS: 40.7128, -74.0060",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 56.04145183494053,
+        "success": true
+      },
+      {
+        "original_text": "API_KEY=abc123xyz789",
+        "extracted_text": "API_KEY=abc123xyz789",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.737743632008126,
+        "success": true
+      },
+      {
+        "original_text": "Transfer $1000 to account 456789",
+        "extracted_text": "Transfer $1000 to account 456789",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.88694343186194,
+        "success": true
+      },
+      {
+        "original_text": "Meeting at 3PM Room 205",
+        "extracted_text": "Meeting at 3PM Room 205",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 56.15656210582972,
+        "success": true
+      },
+      {
+        "original_text": "admin:StrongPass2024!",
+        "extracted_text": "admin:StrongPass2024!",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.737743632008126,
+        "success": true
+      },
+      {
+        "original_text": "wallet:1A1zP1eP5QGefi2D",
+        "extracted_text": "wallet:1A1zP1eP5QGefi2D",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.80342268821428,
+        "success": true
+      },
+      {
+        "original_text": "Emergency: +1-555-0123",
+        "extracted_text": "Emergency: +1-555-0123",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.67304307120815,
+        "success": true
+      },
+      {
+        "original_text": "mysql://user:pass@localhost",
+        "extracted_text": "mysql://user:pass@localhost",
+        "character_accuracy": 1.0,
+        "word_accuracy": 1.0,
+        "psnr": 55.82831069225122,
+        "success": true
+      }
+    ]
+  },
+  "gan_results": {
+    "average_character_accuracy": 0.883,
+    "average_word_accuracy": 0.0,
+    "average_psnr": 11.92,
+    "total_tests": 10
+  },
+  "comparison": {
+    "gan_wins": 
