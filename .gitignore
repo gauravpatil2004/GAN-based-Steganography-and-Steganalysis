@@ -1,4 +1,3 @@
-@"
 # Python
 __pycache__/
 *.py[cod]
@@ -29,9 +28,22 @@ Thumbs.db
 *.pth
 *.pt
 *.h5
+*.ckpt
 
 # Data and results
 data/
 results/
 models/
-"@ | Out-File -Encoding UTF8 .gitignore
+
+# Generated images and plots
+*.png
+*.jpg
+*.jpeg
+
+# Temporary or backup files
+*.tmp
+*.bak
+
+# JSON logs (keep only final ones if needed)
+*.json
+!final_*.json
