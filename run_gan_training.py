@@ -36,7 +36,9 @@ def main():
     config = {
         'batch_size': 16,
         'num_epochs': 50,
-        'learning_rate': 0.0002,
+        'lr_g': 0.0002,      # Generator learning rate
+        'lr_d': 0.0002,      # Discriminator learning rate  
+        'lr_e': 0.0002,      # Extractor learning rate
         'device': device,
         'save_every': 10,
         'log_every': 100,
@@ -49,13 +51,17 @@ def main():
     
     # Initialize trainer
     try:
-        trainer = SteganographyTrainer(
-            batch_size=config['batch_size'],
-            learning_rate=config['learning_rate'],
-            device=config['device'],
+        trainer = SteganographyTrainer(config)
+        print("✅ Trainer initialized")
+        
+        # Create data loader
+        from data_loader import create_data_loader
+        dataloader = create_data_loader(
+            batch_size=config['batch_size'], 
             data_path=config['data_path']
         )
-        print("✅ Trainer initialized")
+        print("✅ Data loader created")
+        
     except Exception as e:
         print(f"❌ Trainer initialization failed: {e}")
         import traceback
@@ -67,11 +73,7 @@ def main():
     print("   This will take some time. Monitor the progress!")
     
     try:
-        history = trainer.train(
-            num_epochs=config['num_epochs'],
-            save_every=config['save_every'],
-            log_every=config['log_every']
-        )
+        history = trainer.train(dataloader, config['num_epochs'])
         
         print("\n🎉 Training completed successfully!")
         

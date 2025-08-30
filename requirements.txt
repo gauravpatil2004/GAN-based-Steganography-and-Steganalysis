@@ -9,3 +9,5 @@ tensorboard
 flask
 streamlit
 tqdm
+cryptography
+pandas
